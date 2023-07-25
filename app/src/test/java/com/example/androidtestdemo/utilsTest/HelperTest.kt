@@ -1,5 +1,6 @@
-package com.example.androidtestdemo.helpers
+package com.example.androidtestdemo.utilsTest
 
+import com.example.androidtestdemo.utils.Helper
 import org.junit.After
 import org.junit.Test
 import org.junit.Assert.*

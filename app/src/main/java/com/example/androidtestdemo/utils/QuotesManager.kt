@@ -1,4 +1,4 @@
-package com.example.androidtestdemo
+package com.example.androidtestdemo.utils
 
 import android.content.Context
 import com.example.androidtestdemo.model.Quotes

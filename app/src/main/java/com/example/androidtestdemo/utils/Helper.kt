@@ -1,4 +1,4 @@
-package com.example.androidtestdemo.helpers
+package com.example.androidtestdemo.utils
 
 class Helper {
 

@@ -1,8 +1,9 @@
-package com.example.androidtestdemo
+package com.example.androidtestdemo.utilsTest
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.example.androidtestdemo.model.Quotes
+import com.example.androidtestdemo.utils.QuotesManager
 import com.google.gson.JsonSyntaxException
 import org.junit.Assert.*
 
