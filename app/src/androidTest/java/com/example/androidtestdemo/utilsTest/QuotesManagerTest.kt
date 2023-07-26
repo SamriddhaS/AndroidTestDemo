@@ -55,9 +55,9 @@ class QuotesManagerTest {
         val quoteManager = QuotesManager()
         quoteManager.populateQuotes(
             arrayOf(
-                Quotes(quote = "This is first quote", author = "1"),
-                Quotes(quote = "This is second quote", author = "2"),
-                Quotes(quote = "This is third quote", author = "3")
+                Quotes(id = 0, quote = "This is first quote", author = "1"),
+                Quotes(id = 1, quote = "This is second quote", author = "2"),
+                Quotes(id = 2, quote = "This is third quote", author = "3")
             )
         )
         //Act
@@ -72,9 +72,9 @@ class QuotesManagerTest {
         val quoteManager = QuotesManager()
         quoteManager.populateQuotes(
             arrayOf(
-                Quotes(quote = "This is first quote", author = "1"),
-                Quotes(quote = "This is second quote", author = "2"),
-                Quotes(quote = "This is third quote", author = "3")
+                Quotes(id = 0, quote = "This is first quote", author = "1"),
+                Quotes(id = 1, quote = "This is second quote", author = "2"),
+                Quotes(id = 2, quote = "This is third quote", author = "3")
             )
         )
         //Act
