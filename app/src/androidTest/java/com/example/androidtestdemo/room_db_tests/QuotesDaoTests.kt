@@ -40,6 +40,32 @@ class QuotesDaoTests {
         assertEquals(singleQuote.author,result?.author)
     }
 
+    @Test
+    fun testDeleteAllQuotesFunction()= runBlocking{
+        val singleQuote1 = Quotes(0,"This is a test quote 0","Samriddha Samanta")
+        val singleQuote2 = Quotes(0,"This is a test quote 1","Shilpa Samanta")
+        val singleQuote3 = Quotes(0,"This is a test quote 2","Mira Samanta")
+        quotesDao.insertQuote(singleQuote1)
+        quotesDao.insertQuote(singleQuote2)
+        quotesDao.insertQuote(singleQuote3)
+        quotesDao.deleteAll()
+        assertEquals(0,quotesDao.getQuotes().getOrAwaitValue().size)
+    }
+
+    @Test
+    fun testDeleteSingleQuoteFromQuotesList()= runBlocking{
+        val singleQuote1 = Quotes(0,"This is a test quote 0","Samriddha Samanta")
+        val singleQuote2 = Quotes(0,"This is a test quote 1","Shilpa Samanta")
+        val singleQuote3 = Quotes(0,"This is a test quote 2","Mira Samanta")
+        quotesDao.insertQuote(singleQuote1)
+        quotesDao.insertQuote(singleQuote2)
+        quotesDao.insertQuote(singleQuote3)
+        quotesDao.deleteSingleQuote(singleQuote2)
+        val result  = quotesDao.getQuotes().getOrAwaitValue()
+        val isPresent = result.contains(singleQuote2)
+        assertEquals(false,isPresent)
+    }
+
     @After
     fun removeSetUp(){
         quotesDb.close()

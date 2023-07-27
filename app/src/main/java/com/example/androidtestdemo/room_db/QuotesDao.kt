@@ -2,6 +2,7 @@ package com.example.androidtestdemo.room_db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -16,7 +17,10 @@ interface QuotesDao {
     suspend fun updateQuote (quote: Quotes)
 
     @Query ("DELETE FROM quotes")
-    suspend fun delete()
+    suspend fun deleteAll()
+
+    @Delete
+    suspend fun deleteSingleQuote(quote: Quotes)
 
     @Query ("SELECT * FROM quotes")
     fun getQuotes ():LiveData<List<Quotes>>
