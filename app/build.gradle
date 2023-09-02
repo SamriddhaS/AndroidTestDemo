@@ -76,4 +76,7 @@ dependencies {
     //testImplementation 'org.mockito:mockito-core:3.10.0'
     androidTestImplementation 'org.mockito:mockito-android:3.10.0'
 
+    //Coroutines test depedency
+    testImplementation"org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
 }
