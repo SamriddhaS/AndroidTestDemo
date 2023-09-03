@@ -26,10 +26,20 @@ class Utils() {
     * as an depedency.
     * */
     suspend fun getUserDataIoDispatcher(dispatcher: CoroutineDispatcher):String{
+        var result = ""
         CoroutineScope(dispatcher).launch {
-            delay(5000)
+            delay(200)
+            result = "coroutine executed"
         }
-        return "User Details - Samriddha"
+        return result
+    }
+
+    var myBool = false
+    suspend fun booleanValueInsideCoroutine(dispatcher: CoroutineDispatcher){
+        CoroutineScope(dispatcher).launch {
+            delay(2000)
+            myBool=true
+        }
     }
 
 }

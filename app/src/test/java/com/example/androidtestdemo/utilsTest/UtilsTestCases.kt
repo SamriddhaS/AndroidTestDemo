@@ -10,6 +10,7 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -45,7 +46,8 @@ class UtilsTestCases {
         * and avoid delays and similar things to get the test complete in much quicker time.
         * */
         runTest {
-            util.getUserData()
+            val result = util.getUserData()
+            assertEquals(result,"User Details not found")
         }
     }
 
@@ -53,15 +55,35 @@ class UtilsTestCases {
     fun test_a_function_with_main_dispatcher(){
         val util = Utils()
         runTest {
-            util.getUserDataMainDispatcher()
+            val result = util.getUserDataMainDispatcher()
+            assertEquals(result,"User Details - Samriddha")
         }
     }
 
+    /*
+    * This test case here will not pass because testDispatcher only runs in a single thread. All of our coroutine gets
+    * scheduled in that single thread only. Note that it gets scheduled for execution but doesn't gets executed until
+    * we want to execute the coroutine. See the next test function to know how to execute it.
+    * */
     @Test
     fun test_a_function_with_io_dispatcher(){
         val util = Utils()
         runTest {
-            util.getUserDataIoDispatcher(coroutineRule.testDispatcher)
+            val result = util.getUserDataIoDispatcher(coroutineRule.testDispatcher)
+            assertEquals(result,"coroutine executed")
         }
     }
+
+    @Test
+    fun test_a_function_with_io_dispatcher_will_execute_coroutine(){
+        val util = Utils()
+        runTest {
+            val result = util.booleanValueInsideCoroutine(coroutineRule.testDispatcher)
+            // by adding this line we are waiting till the coroutine is executed then checking the assert statement
+            coroutineRule.testDispatcher.scheduler.advanceUntilIdle()
+            assertEquals(true,util.myBool)
+        }
+    }
+
+
 }
