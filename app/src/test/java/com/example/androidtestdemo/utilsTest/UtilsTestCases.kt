@@ -1,5 +1,6 @@
 package com.example.androidtestdemo.utilsTest
 
+import com.example.androidtestdemo.testRules.CoroutineRule
 import com.example.androidtestdemo.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -10,33 +11,17 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class UtilsTestCases {
 
     /*
-    * We don't have a main dispatcher available inside test class so we cant
-    * test those functions which use a main dispatcher inside them. As a workaround we have a testDispatcher class,
-    * whenever we need to test some fun which has main dispatcher in it we will assign our testDispatcher to test
-    * that function inside our test class.
-    *
-    * We also need to make sure to reset the dispatcher inside @After class once the test case is complete.
-    *
-    * When testing we don't want multiple threads to be there for that reason this "StandardTestDispatcher" class is
-    * created.This class tries to manage the coroutine test case in a single thread so that the tests can be reliablelly executed.
+    * Instead of using a local test dispatcher we can create a rule for that same work. So we can use
+    * the same test dispatcher code in different classes without repeating the same code.
     * */
-    private val testDispatcher = StandardTestDispatcher()
-
-    @Before
-    fun setUp(){
-        // Whenever we get a request for main dispatcher instead use this testDispatcher to execute the function.
-        Dispatchers.setMain(testDispatcher)
-    }
-
-    @After
-    fun tearDown(){
-        Dispatchers.resetMain()
-    }
+    @get:Rule
+    val coroutineRule  = CoroutineRule()
 
     @Test
     fun test_get_user_data(){
@@ -69,6 +54,14 @@ class UtilsTestCases {
         val util = Utils()
         runTest {
             util.getUserDataMainDispatcher()
+        }
+    }
+
+    @Test
+    fun test_a_function_with_io_dispatcher(){
+        val util = Utils()
+        runTest {
+            util.getUserDataIoDispatcher(coroutineRule.testDispatcher)
         }
     }
 }
